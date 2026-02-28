@@ -1,0 +1,351 @@
+[
+    {
+      "id": "m1",
+      "cat": "Movie",
+      "title": "The Kerala Story 2: Goes Beyond",
+      "lang": "Hindi",
+      "age": "UA16+",
+      "price": 250,
+      "shows": [
+        {"date": "2026-02-28", "venue": "PVR Orion Mall", "times": ["11:00 AM", "01:30 PM", "07:10 PM"]},
+        {"date": "2026-03-01", "venue": "Cinepolis Nexus Shantiniketan", "times": ["10:00 AM", "04:55 PM", "10:30 PM"]},
+        {"date": "2026-03-02", "venue": "INOX Megaplex", "times": ["12:20 PM", "06:25 PM"]}
+      ]
+    },
+    {
+      "id": "m2",
+      "cat": "Movie",
+      "title": "Rakkasapuradol",
+      "lang": "Kannada",
+      "age": "UA16+",
+      "price": 200,
+      "shows": [
+        {"date": "2026-02-28", "venue": "PVR Vega City", "times": ["10:00 AM", "02:00 PM"]},
+        {"date": "2026-03-01", "venue": "Cinepolis Nexus Shantiniketan", "times": ["11:15 AM", "05:00 PM"]}
+      ]
+    },
+    {
+      "id": "m3",
+      "cat": "Movie",
+      "title": "Dune: Part Three (IMAX)",
+      "lang": "English",
+      "age": "UA",
+      "price": 450,
+      "shows": [
+        {"date": "2026-02-28", "venue": "PVR Director's Cut", "times": ["02:00 AM", "09:00 AM", "11:30 PM"]},
+        {"date": "2026-03-01", "venue": "INOX Laserplex", "times": ["01:30 AM", "10:00 AM"]}
+      ]
+    },
+    {
+      "id": "m4",
+      "cat": "Movie",
+      "title": "Pushpa 3: The Roar",
+      "lang": "Telugu",
+      "age": "A",
+      "price": 300,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Urvashi Cinema", "times": ["03:00 PM", "08:00 PM"]},
+        {"date": "2026-03-02", "venue": "Gopalan Cinemas", "times": ["12:00 PM", "09:15 PM"]}
+      ]
+    },
+    {
+      "id": "c1",
+      "cat": "Comedy",
+      "title": "Bumble Fumble: Anti-Valentine's Special",
+      "lang": "English, Hindi",
+      "age": "16yrs+",
+      "price": 199,
+      "shows": [
+        {"date": "2026-02-28", "venue": "The Balcony Bar, Indiranagar", "times": ["08:00 PM"]},
+        {"date": "2026-03-01", "venue": "The Balcony Bar, Indiranagar", "times": ["07:00 PM"]}
+      ]
+    },
+    {
+      "id": "c2",
+      "cat": "Comedy",
+      "title": "Standup Open Mic Night",
+      "lang": "English",
+      "age": "18yrs+",
+      "price": 150,
+      "shows": [
+        {"date": "2026-03-02", "venue": "Underground Comedy Club, Koramangala", "times": ["08:30 PM"]}
+      ]
+    },
+    {
+      "id": "c3",
+      "cat": "Comedy",
+      "title": "Late Night Laughs: Dark Comedy",
+      "lang": "English",
+      "age": "18yrs+",
+      "price": 399,
+      "shows": [
+        {"date": "2026-02-28", "venue": "That Comedy Club, Bandra", "times": ["10:30 PM", "11:45 PM"]},
+        {"date": "2026-03-01", "venue": "That Comedy Club, Bandra", "times": ["11:00 PM"]}
+      ]
+    },
+    {
+      "id": "c4",
+      "cat": "Comedy",
+      "title": "Sunday Brunch & Banter",
+      "lang": "Hindi",
+      "age": "12yrs+",
+      "price": 499,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Biergarten, Whitefield", "times": ["12:30 PM"]}
+      ]
+    },
+    {
+      "id": "mu1",
+      "cat": "Music",
+      "title": "Sanam India Tour",
+      "lang": "Hindi",
+      "age": "5yrs+",
+      "price": 1300,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Phoenix Market City", "times": ["07:30 PM"]}
+      ]
+    },
+    {
+      "id": "mu2",
+      "cat": "Music",
+      "title": "Arijit Singh Live in Concert",
+      "lang": "Hindi",
+      "age": "3yrs+",
+      "price": 2500,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Bhartiya City", "times": ["06:30 PM"]}
+      ]
+    },
+    {
+      "id": "mu3",
+      "cat": "Music",
+      "title": "Electronic Sunset to Sunrise Party",
+      "lang": "English",
+      "age": "21yrs+",
+      "price": 1500,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Pebble, Palace Grounds", "times": ["04:00 PM", "11:00 PM", "03:00 AM"]}
+      ]
+    },
+    {
+      "id": "th1",
+      "cat": "Theatre",
+      "title": "HUMARE RAM Ft Ashutosh Rana",
+      "lang": "Hindi",
+      "age": "3yrs+",
+      "price": 1299,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Chowdiah Memorial Hall", "times": ["06:00 PM"]},
+        {"date": "2026-03-02", "venue": "Chowdiah Memorial Hall", "times": ["06:00 PM"]}
+      ]
+    },
+    {
+      "id": "th2",
+      "cat": "Theatre",
+      "title": "Malgudi Days on Stage",
+      "lang": "English",
+      "age": "All",
+      "price": 500,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Ranga Shankara", "times": ["03:30 PM", "07:00 PM"]},
+        {"date": "2026-03-01", "venue": "Ranga Shankara", "times": ["03:30 PM"]}
+      ]
+    },
+    {
+      "id": "th3",
+      "cat": "Theatre",
+      "title": "Midnight Murder Mystery",
+      "lang": "English",
+      "age": "16yrs+",
+      "price": 750,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Jagriti Theatre", "times": ["11:00 PM"]},
+        {"date": "2026-03-01", "venue": "Jagriti Theatre", "times": ["11:00 PM"]}
+      ]
+    },
+    {
+      "id": "sp1",
+      "cat": "Sports",
+      "title": "The SiStra Run - Women Only",
+      "lang": "English",
+      "age": "16yrs+",
+      "price": 399,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Orion Mall, Rajajinagar", "times": ["05:00 AM"]}
+      ]
+    },
+    {
+      "id": "sp2",
+      "cat": "Sports",
+      "title": "RCB vs CSK Live Fan Park",
+      "lang": "Hindi, English",
+      "age": "All",
+      "price": 200,
+      "shows": [
+        {"date": "2026-02-28", "venue": "St. Joseph's Indian High School Ground", "times": ["07:30 PM"]}
+      ]
+    },
+    {
+      "id": "sp3",
+      "cat": "Sports",
+      "title": "Sunday Sunrise Cycling Trail",
+      "lang": "English",
+      "age": "12yrs+",
+      "price": 600,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Nandi Hills Base", "times": ["04:30 AM", "06:00 AM"]}
+      ]
+    },
+    {
+      "id": "am1",
+      "cat": "Amusement",
+      "title": "Wonderla Amusement Park",
+      "lang": "English",
+      "age": "10yrs+",
+      "price": 1239,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Wonderla Bangalore", "times": ["11:00 AM"]},
+        {"date": "2026-03-01", "venue": "Wonderla Bangalore", "times": ["11:00 AM"]},
+        {"date": "2026-03-02", "venue": "Wonderla Bangalore", "times": ["11:00 AM"]}
+      ]
+    },
+    {
+      "id": "am2",
+      "cat": "Amusement",
+      "title": "Lumbini Gardens Boating",
+      "lang": "Kannada, English",
+      "age": "All",
+      "price": 150,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Lumbini Gardens", "times": ["09:00 AM", "05:00 PM"]},
+        {"date": "2026-03-01", "venue": "Lumbini Gardens", "times": ["09:00 AM", "04:30 PM"]}
+      ]
+    },
+    {
+      "id": "am3",
+      "cat": "Amusement",
+      "title": "Snow City Night Pass",
+      "lang": "English",
+      "age": "5yrs+",
+      "price": 800,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Snow City, JC Nagar", "times": ["08:00 PM", "10:30 PM"]},
+        {"date": "2026-03-02", "venue": "Snow City, JC Nagar", "times": ["09:00 PM"]}
+      ]
+    },
+    {
+      "id": "k1",
+      "cat": "Kids",
+      "title": "PLAY 'N' LEARN",
+      "lang": "English",
+      "age": "1-7yrs",
+      "price": 1200,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Nexus Shantiniketan", "times": ["10:00 AM", "02:00 PM", "05:00 PM"]},
+        {"date": "2026-03-01", "venue": "Nexus Shantiniketan", "times": ["10:00 AM", "02:00 PM"]},
+        {"date": "2026-03-02", "venue": "Nexus Shantiniketan", "times": ["04:00 PM"]}
+      ]
+    },
+    {
+      "id": "k2",
+      "cat": "Kids",
+      "title": "Magic Show & Balloon Art",
+      "lang": "English, Hindi",
+      "age": "3yrs+",
+      "price": 300,
+      "shows": [
+        {"date": "2026-02-28", "venue": "VR Bengaluru", "times": ["11:30 AM", "04:30 PM"]},
+        {"date": "2026-03-02", "venue": "VR Bengaluru", "times": ["05:00 PM"]}
+      ]
+    },
+    {
+      "id": "k3",
+      "cat": "Kids",
+      "title": "Gerry Martin's Petting Zoo",
+      "lang": "English",
+      "age": "All",
+      "price": 250,
+      "shows": [
+        {"date": "2026-03-01", "venue": "The Martin Farm", "times": ["08:00 AM", "03:00 PM"]}
+      ]
+    },
+    {
+      "id": "w1",
+      "cat": "Workshop",
+      "title": "Masterclass: Intro to Artisanal Baking",
+      "lang": "English",
+      "age": "12yrs+",
+      "price": 800,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Lavonne Academy, Indiranagar", "times": ["02:00 PM"]}
+      ]
+    },
+    {
+      "id": "w2",
+      "cat": "Workshop",
+      "title": "Pottery for Beginners",
+      "lang": "English, Kannada",
+      "age": "8yrs+",
+      "price": 600,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Clay Station, HSR Layout", "times": ["04:00 PM"]}
+      ]
+    },
+    {
+      "id": "w3",
+      "cat": "Workshop",
+      "title": "Sunrise Yoga & Meditation",
+      "lang": "English",
+      "age": "16yrs+",
+      "price": 200,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Cubbon Park", "times": ["05:30 AM"]},
+        {"date": "2026-03-01", "venue": "Cubbon Park", "times": ["05:30 AM"]}
+      ]
+    },
+    {
+      "id": "w4",
+      "cat": "Workshop",
+      "title": "Late Night Painting & Wine",
+      "lang": "English",
+      "age": "21yrs+",
+      "price": 1800,
+      "shows": [
+        {"date": "2026-02-28", "venue": "Koramangala Social", "times": ["09:30 PM"]}
+      ]
+    },
+    {
+      "id": "p1",
+      "cat": "Party",
+      "title": "Rang Vansh - Premium Holi Party",
+      "lang": "Hindi, English",
+      "age": "3yrs+",
+      "price": 499,
+      "shows": [
+        {"date": "2026-03-02", "venue": "Eden Event Area", "times": ["11:00 AM", "04:00 PM"]}
+      ]
+    },
+    {
+      "id": "p2",
+      "cat": "Party",
+      "title": "Techno Afterhours",
+      "lang": "English",
+      "age": "21yrs+",
+      "price": 1000,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Koramangala Block 5 Secret Location", "times": ["01:00 AM", "03:30 AM"]}
+      ]
+    },
+    {
+      "id": "p3",
+      "cat": "Party",
+      "title": "Sunday Sundowner BBQ",
+      "lang": "English",
+      "age": "18yrs+",
+      "price": 1500,
+      "shows": [
+        {"date": "2026-03-01", "venue": "Toit Brewpub Roof", "times": ["04:00 PM", "07:00 PM"]}
+      ]
+    }
+  ]
+  
