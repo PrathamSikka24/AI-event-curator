@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { Search, Mic, Loader2 } from 'lucide-react';
+import { Search, Mic, Loader2, AlertTriangle, MapPin } from 'lucide-react';
 import eventsData from '../events.json';
 
 interface Show {
@@ -78,6 +78,37 @@ function EventCard({ event }: { event: Event }) {
   );
 }
 
+function FallbackCard() {
+  return (
+    <div className="max-w-md w-full mx-auto">
+      <div className="p-8 border border-amber-200 rounded-xl bg-gradient-to-b from-amber-50/80 to-white shadow-lg shadow-amber-100/50">
+        <div className="flex justify-center mb-4">
+          <div className="p-3 rounded-full bg-amber-100">
+            <AlertTriangle className="w-8 h-8 text-amber-600" />
+          </div>
+        </div>
+        <h2 className="text-xl font-semibold text-gray-900 text-center mb-3">
+          No exact matches, but we have an idea...
+        </h2>
+        <p className="text-gray-600 text-center text-sm leading-relaxed mb-6">
+          We couldn&apos;t find a scheduled show fitting your exact time and budget.
+          However, the nearby Nexus Shantiniketan Mall has an interactive VR gaming
+          zone and bowling alley you can walk into right now!
+        </p>
+        <a
+          href="https://www.google.com/maps/search/Nexus+Shantiniketan+Mall+Bangalore"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
+        >
+          <MapPin className="w-4 h-4" />
+          Get Directions
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
@@ -85,8 +116,10 @@ export default function Home() {
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isListening, setIsListening] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
   const [micError, setMicError] = useState<string | null>(null);
-  const recognitionRef = useRef<any>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const performSearch = useCallback(async (query: string) => {
     const trimmed = query.trim();
@@ -125,55 +158,92 @@ export default function Home() {
     performSearch(searchQuery);
   };
 
-  const handleMicClick = () => {
-    const SpeechRecognition =
-      (window as any).webkitSpeechRecognition ||
-      (window as any).SpeechRecognition;
-
-    if (!SpeechRecognition) {
-      setMicError('Voice search is not supported in this browser.');
+  const handleMicClick = useCallback(async () => {
+    if (isListening) {
+      mediaRecorderRef.current?.stop();
       return;
     }
 
-    if (!recognitionRef.current) {
-      recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = false;
-      recognitionRef.current.interimResults = false;
-      recognitionRef.current.onstart = () => {
-        setIsListening(true);
-        setMicError(null);
-      };
-      recognitionRef.current.onend = () => setIsListening(false);
-      recognitionRef.current.onresult = (event: any) => {
-        const transcript = Array.from(event.results)
-          .map((result: any) => result[0].transcript)
-          .join('');
-        setSearchQuery(transcript);
-        performSearch(transcript);
-      };
-      recognitionRef.current.onerror = (event: any) => {
-        if (event.error === 'permission-denied') {
-          setMicError('Microphone permission denied. Please enable it in your browser settings.');
-        } else if (event.error === 'no-speech') {
-          setMicError('No speech detected. Please try again.');
-        } else {
-          setMicError('Error accessing microphone. Please try again.');
-        }
-        setIsListening(false);
-      };
-    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      streamRef.current = stream;
 
-    if (isListening) {
-      recognitionRef.current.stop();
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm')
+        ? 'audio/webm'
+        : 'audio/mp4';
+      const recorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = recorder;
+
+      const chunks: Blob[] = [];
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = async () => {
+        stream.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
+        mediaRecorderRef.current = null;
+        setIsListening(false);
+
+        if (chunks.length === 0) {
+          setMicError('No audio recorded. Please try again.');
+          return;
+        }
+
+        const blob = new Blob(chunks, { type: mimeType });
+        const file = new File([blob], 'recording.webm', { type: mimeType });
+
+        setIsTranscribing(true);
+        setMicError(null);
+
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+
+          const res = await fetch('/api/transcribe', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data.error || 'Transcription failed');
+          }
+
+          const text = data.text?.trim() ?? '';
+          if (text) {
+            setSearchQuery(text);
+            performSearch(text);
+          } else {
+            setMicError('No speech detected. Please try again.');
+          }
+        } catch (err) {
+          setMicError('Transcription failed. Please try again.');
+        } finally {
+          setIsTranscribing(false);
+        }
+      };
+
+      recorder.start();
+      setIsListening(true);
+      setMicError(null);
+    } catch (err) {
       setIsListening(false);
-    } else {
-      try {
-        recognitionRef.current.start();
-      } catch (err) {
-        setMicError('Failed to start voice recognition.');
+      if (err instanceof Error && err.name === 'NotAllowedError') {
+        setMicError('Microphone permission denied. Please enable it in your browser settings.');
+      } else {
+        setMicError('Error accessing microphone. Please try again.');
       }
     }
-  };
+  }, [isListening, performSearch]);
+
+  const micDisabled = isLoading || isTranscribing;
+  const statusText = isListening
+    ? 'Listening...'
+    : isTranscribing
+      ? 'Transcribing...'
+      : null;
 
   return (
     <main className="min-h-screen bg-white flex flex-col items-center justify-center px-4 py-8">
@@ -197,10 +267,16 @@ export default function Home() {
 
               <input
                 type="text"
-                placeholder={isLoading ? 'Thinking...' : 'Search events, music, food, sports...'}
+                placeholder={
+                  isLoading
+                    ? 'Thinking...'
+                    : isTranscribing
+                      ? 'Transcribing...'
+                      : 'Search events, music, food, sports...'
+                }
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                disabled={isLoading}
+                disabled={isLoading || isTranscribing}
                 className="flex-1 outline-none text-gray-900 placeholder-gray-500 bg-transparent disabled:opacity-70 disabled:cursor-not-allowed"
                 aria-label="Search events"
               />
@@ -208,11 +284,11 @@ export default function Home() {
               <button
                 type="button"
                 onClick={handleMicClick}
-                disabled={isLoading}
+                disabled={micDisabled}
                 className={`flex-shrink-0 p-2 rounded-full transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                   isListening ? 'bg-red-100' : 'hover:bg-gray-100'
                 }`}
-                aria-label={isListening ? 'Stop listening' : 'Start voice search'}
+                aria-label={isListening ? 'Stop recording' : 'Start voice search'}
                 title={isListening ? 'Listening...' : 'Voice search'}
               >
                 <Mic
@@ -229,9 +305,9 @@ export default function Home() {
               </div>
             )}
 
-            {isListening && (
+            {statusText && (
               <div className="mt-3 text-sm text-gray-600 text-center animate-pulse">
-                Listening... speak now
+                {statusText}
               </div>
             )}
           </div>
@@ -259,13 +335,10 @@ export default function Home() {
         </div>
       )}
 
-      {/* Empty State */}
+      {/* Fallback Card - Empty results */}
       {hasSearched && !error && filteredEvents.length === 0 && (
-        <div className="max-w-2xl w-full text-center">
-          <p className="text-gray-600">
-            We couldn&apos;t find any exact matches for that time or criteria. Try
-            widening your search.
-          </p>
+        <div className="w-full flex justify-center">
+          <FallbackCard />
         </div>
       )}
     </main>
